@@ -1,0 +1,18 @@
+body{
+    background-color: #252525;
+}
+
+#game-container {
+    position: relative;
+    width: 99vw;
+    height: 98vh;
+    border: 1px solid white;
+}
+
+#bird {
+    position: absolute;
+    top: 200px;
+    left: 250px;
+    width: 50px;
+    height: 50px;
+}
