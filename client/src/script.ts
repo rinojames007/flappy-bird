@@ -1,34 +1,43 @@
+// get the bird element
 const birdElement: any = document.querySelector<HTMLElement>('#bird');
 
-let position = 0;
-const velocity = 5;
-let isPaused = false;
+// extract the css property of bird
+const birdStyle:CSSStyleDeclaration = window.getComputedStyle(birdElement);
 
-let animationId: number;
+// since we have to make the bird jump and so on, therefore we have to extract the top value
+let positionY: number = parseInt(birdStyle.getPropertyValue('top').slice(0, 5));
 
-// pause the bird's movement
-document.addEventListener("keydown", (event: KeyboardEvent) => {
-    // if p is pressed
-    if(event.code === 'KeyP') {
-        togglePause();
+// in order to make the bird down smoothly
+const gravity: number = 1;
+const velocity: number = 20;
+
+let isJumped: boolean = false;
+
+// this is this jumping stuff
+function jump(): void {
+    isJumped = true;
+    if(isJumped) {
+        positionY -= velocity;
+        birdElement.style.top = positionY + 'px';
     }
-});
+}
 
-let animate = () => {
-    position += velocity;
-    birdElement.style.left = position + 'px';
-
-    // Call the animate function recursively using requestAnimationFrame
-    animationId = requestAnimationFrame(animate);
-};
-
-let togglePause = () => {
-    isPaused = !isPaused;
-    if(isPaused) {
-        cancelAnimationFrame(animationId);
-    } else {
-        animate();
+// an event listener that will make the bird jump once space bar is pressed
+document.addEventListener('keydown', (event: KeyboardEvent) => {
+    if(event.code === 'Space'){
+        jump();
     }
-};
+})
+
+// function for the bird to come down
+function fall(): void {
+    positionY += gravity;
+    birdElement.style.top = positionY + 'px';
+}
+
+function animate(): void {
+    fall();
+    requestAnimationFrame(animate);
+}
 
 animate();
