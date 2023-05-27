@@ -1,18 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body{
     background-color: #252525;
 }
-
 #game-container {
-    position: relative;
-    width: 99vw;
-    height: 98vh;
+    background-image: url("/client/assets/background.jpg");
     border: 1px solid white;
+    height: 99vh;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#game-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url("/client/assets/background.jpg");
+    background-repeat: repeat-x;
+    background-position: 0;
+    animation: scrollBackground 10s linear infinite;
+}
+
+@keyframes scrollBackground {
+    0% {
+        background-position: 0;
+    }
+    100% {
+        background-position: -100%;
+    }
 }
 
 #bird {
     position: absolute;
-    top: 200px;
-    left: 250px;
-    width: 50px;
-    height: 50px;
+    top: 30%;
+    left: 20%;
+    width: 130px;
+    height: 130px;
 }
