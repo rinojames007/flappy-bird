@@ -44,3 +44,10 @@ body{
     width: 130px;
     height: 130px;
 }
+
+#pipe-container img{
+    background-image: url("/client/assets/pipe.png");
+    position: absolute;
+    right: 0;
+    transform: rotate(180deg);
+}
