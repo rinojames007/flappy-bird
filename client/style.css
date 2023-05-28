@@ -22,7 +22,7 @@ body{
     left: 0;
     width: 200%;
     height: 100%;
-    background-image: url("/client/assets/background.jpg");
+    background-image: url("assets/background.jpg");
     background-repeat: repeat-x;
     background-position: 0;
     animation: scrollBackground 10s linear infinite;
