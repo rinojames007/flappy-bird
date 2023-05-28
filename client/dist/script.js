@@ -7,28 +7,66 @@ const birdStyle = window.getComputedStyle(birdElement);
 let positionY = parseInt(birdStyle.getPropertyValue('top').slice(0, 5));
 // in order to make the bird down smoothly
 const gravity = 1;
-const velocity = 20;
+const velocity = 70;
 let isJumped = false;
+let animationId;
 // this is this jumping stuff
 function jump() {
     isJumped = true;
     if (isJumped) {
         positionY -= velocity;
         birdElement.style.top = positionY + 'px';
+        setTimeout(() => {
+            birdElement.style.transform = 'rotate(0deg)';
+        }, 10);
+        birdElement.style.transform = 'rotate(-20deg)';
     }
 }
 // an event listener that will make the bird jump once space bar is pressed
 document.addEventListener('keydown', (event) => {
     if (event.code === 'Space') {
+        if (!animationId) {
+            // Start the animation only if it's not already running
+            animate();
+        }
         jump();
     }
 });
+// function for the bird to come down
 function fall() {
     positionY += gravity;
     birdElement.style.top = positionY + 'px';
 }
 function animate() {
     fall();
-    requestAnimationFrame(animate);
+    if (birdElement.style.top === '900px') {
+        console.log('cancelling animation' + animationId);
+        cancelAnimationFrame(animationId);
+        animationId = 0;
+        birdElement.style.top = '900px';
+        return;
+    }
+    ;
+    animationId = requestAnimationFrame(animate);
+    // executing this works, but the animation does not begin even after pressing space, although bird jumps
 }
 animate();
+// pipe
+const pipeContainer = document.getElementById('pipe-container');
+const pipeElement = document.createElement('img');
+let positionX = 10;
+let pipeSpeed = 1;
+function createPipe() {
+    pipeElement.id = 'pipe';
+    pipeElement.src = "/client/assets/pipe.png";
+    pipeElement.setAttribute('width', '200px');
+    pipeElement.setAttribute('height', '40%');
+    pipeContainer.appendChild(pipeElement);
+}
+function movePipe() {
+    positionX += pipeSpeed;
+    pipeElement.style.right = positionX + 'px';
+    requestAnimationFrame(movePipe);
+}
+;
+movePipe();
