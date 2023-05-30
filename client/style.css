@@ -50,11 +50,15 @@ body{
     width: 100%;
 }
 
-#pipe-container img{
-    background-image: url("/client/assets/pipe.png");
+.pipe-upper{
     position: absolute;
-    /*right: 0;*/
     transform: rotate(180deg);
+    animation: moveRight 15s linear infinite;
+}
+
+.pipe-lower {
+    top: 60vh;
+    position: absolute;
     animation: moveRight 15s linear infinite;
 }
 
