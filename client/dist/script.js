@@ -53,15 +53,13 @@ function animate() {
 animate();
 // pipe
 const pipeContainer = document.getElementById('pipe-container');
-const pipeElement = document.createElement('img');
-let positionX = 10;
-let pipeSpeed = 1;
+// an array which will stores the generated pipes
 let pipes = [];
 let pipeNumber = 0;
 function createPipe() {
     let pipeElement = document.createElement('img');
     // pipe init
-    pipeElement.setAttribute('class', 'pipe');
+    pipeElement.classList.add('pipe');
     pipeElement.src = "/client/assets/pipe.png";
     //setting height and width
     pipeElement.setAttribute('width', '200px');
@@ -70,17 +68,7 @@ function createPipe() {
     pipes.push(pipeElement);
     pipeContainer.appendChild(pipes[pipeNumber]);
     pipeNumber++;
-    console.log(pipeNumber + "on the createPipe()");
 }
 setInterval(() => {
     createPipe();
 }, 3000);
-console.log(pipeElement);
-function movePipe() {
-    positionX += pipeSpeed;
-    console.log(pipeNumber + " on the movePipe()");
-    pipeElement.style.right = positionX + 'px';
-    requestAnimationFrame(movePipe);
-}
-;
-movePipe();
