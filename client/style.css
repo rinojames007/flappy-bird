@@ -28,12 +28,13 @@ body{
     animation: scrollBackground 10s linear infinite;
 }
 
+
 @keyframes scrollBackground {
     0% {
-        background-position: 0;
+        background-position: 0vw;
     }
     100% {
-        background-position: -100%;
+        background-position: -100vw;
     }
 }
 
@@ -45,9 +46,23 @@ body{
     height: 130px;
 }
 
+#pipe-container {
+    width: 100%;
+}
+
 #pipe-container img{
     background-image: url("/client/assets/pipe.png");
     position: absolute;
-    right: 0;
+    /*right: 0;*/
     transform: rotate(180deg);
+    animation: moveRight 15s linear infinite;
+}
+
+@keyframes moveRight {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 100vw;
+    }
 }

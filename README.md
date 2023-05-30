@@ -2,7 +2,7 @@
 
 ## Description
 
-Flappy Bird Multiplayer Game is a browser-based game where players control birds to navigate through obstacles and earn points. The game features multiplayer mode, where players can compete with each other in real-time. The game is built using HTML, CSS, JavaScript, and Socket.IO.
+Flappy Bird Multiplayer Game is a browser-based game where players control birds to navigate through obstacles and earn points. The game features multiplayer mode, where players can compete with each other in real-time. The game is built using HTML, CSS, TypeScript, and Socket.IO.
 
 ## Installation
 

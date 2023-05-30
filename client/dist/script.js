@@ -4,7 +4,7 @@ const birdElement = document.querySelector('#bird');
 // extract the css property of bird
 const birdStyle = window.getComputedStyle(birdElement);
 // in order to make the bird down smoothly
-const gravity = 1;
+const gravity = 1.9;
 const velocity = 70;
 // since we have to make the bird jump and so on, therefore we have to extract the top value
 let positionY = parseInt(birdStyle.getPropertyValue('top').slice(0, 5));
@@ -19,7 +19,7 @@ function jump() {
         setTimeout(() => {
             birdElement.style.transform = 'rotate(0deg)';
         }, 10);
-        birdElement.style.transform = 'rotate(-20deg)';
+        birdElement.style.transform = 'rotate(-30deg)';
     }
 }
 // an event listener that will make the bird jump once space bar is pressed
@@ -40,10 +40,10 @@ function fall() {
 }
 function animate() {
     fall();
-    if (birdElement.style.top === '900px') {
+    if (birdElement.style.top === '850px') {
         cancelAnimationFrame(animationId);
         animationId = 0;
-        birdElement.style.top = '900px';
+        birdElement.style.top = '850px';
         return;
     }
     ;
@@ -51,3 +51,24 @@ function animate() {
     // executing this works, but the animation does not begin even after pressing space, although bird jumps
 }
 animate();
+// pipe
+const pipeContainer = document.getElementById('pipe-container');
+// an array which will stores the generated pipes
+let pipes = [];
+let pipeNumber = 0;
+function createPipe() {
+    let pipeElement = document.createElement('img');
+    // pipe init
+    pipeElement.classList.add('pipe');
+    pipeElement.src = "assets/pipe.png";
+    //setting height and width
+    pipeElement.setAttribute('width', '200px');
+    pipeElement.setAttribute('height', '40%');
+    //pipe insertion
+    pipes.push(pipeElement);
+    pipeContainer.appendChild(pipes[pipeNumber]);
+    pipeNumber++;
+}
+setInterval(() => {
+    createPipe();
+}, 3000);
