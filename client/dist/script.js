@@ -60,7 +60,7 @@ function createPipe() {
     let pipeElement = document.createElement('img');
     // pipe init
     pipeElement.classList.add('pipe');
-    pipeElement.src = "/client/assets/pipe.png";
+    pipeElement.src = "assets/pipe.png";
     //setting height and width
     pipeElement.setAttribute('width', '200px');
     pipeElement.setAttribute('height', '40%');
