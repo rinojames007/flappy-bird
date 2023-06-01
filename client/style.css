@@ -1,6 +1,8 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 body{
@@ -51,15 +53,18 @@ body{
 }
 
 .pipe-upper{
+    aspect-ratio: 1;
     position: absolute;
     transform: rotate(180deg);
     animation: moveRight 15s linear infinite;
 }
 
 .pipe-lower {
+    aspect-ratio: 1;
     top: 60vh;
     position: absolute;
     animation: moveRight 15s linear infinite;
+    /*width: 25%;*/
 }
 
 @keyframes moveRight {
