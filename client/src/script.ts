@@ -12,8 +12,10 @@ const velocity: number = 70;
 let positionY: number = parseInt(birdStyle.getPropertyValue('top').slice(0, 5));
 
 let isJumping: boolean = false;
+let firstJump: boolean = true;
 
 let animationId: number;
+let isPaused: boolean = false;
 
 // this is this jumping stuff
 function jump(): void {
@@ -37,32 +39,54 @@ function fall(): void {
 }
 
 function animate(): void {
-    if(isJumping){
+
         fall();
-        if (birdElement.style.top === '850px') {
-            cancelAnimationFrame(animationId);
-            animationId = 0;
-            birdElement.style.top = '850px';
-            return;
+        animationId = requestAnimationFrame(animate);
+
+        if(firstJump){
+            if (birdElement.style.top === '850px') {
+                cancelAnimationFrame(animationId);
+                animationId = 0;
+                birdElement.style.top = '850px';
+                return;
+            }
+        } else {
+            if (birdElement.style.top === '850px') {
+                cancelAnimationFrame(animationId);
+                animationId = 0;
+                birdElement.style.top = '0';
+                console.log("game over buddy");
+                return;
+            }
         }
-    } else {
-        isJumping = false;
-    }
-    animationId = requestAnimationFrame(animate);
+
     // executing this works, but the animation does not begin even after pressing space, although bird jumps
 }
 
 animate();
 
+let upperPipe: any = document.querySelectorAll(".pipe-upper");
+
 // an event listener that will make the bird jump once space bar is pressed
 document.addEventListener('keydown', (event: KeyboardEvent) => {
     if(event.code === 'Space'){
+        isJumping = false;
         // making sure the animation id is 0 for the animation to begin
         if (!animationId) {
             // Start the animation only if it's not already running
             animate();
         }
         jump();
+    }
+    else if(event.code === 'KeyP') {
+        if (isPaused) {
+            isPaused = false;
+            animate();
+        } else {
+            isPaused = true;
+            console.log("stop the pipes!!!")
+            cancelAnimationFrame(animationId);
+        }
     }
 })
 
@@ -103,14 +127,17 @@ function createPipe(): void {
     lowerElement.style.height = generatePipeHeight();
 
     //pipe insertion
-    pipes.push(upperElement);
-    pipes.push(lowerElement);
-    pipeContainer.appendChild(pipes[0]);
-    pipeContainer.appendChild(pipes[1]);
-    pipes = [];
-
+    pipes.push(pipeContainer.appendChild(upperElement));
+    pipes.push(pipeContainer.appendChild(lowerElement));
 }
 
-setInterval(()=> {
-    createPipe();
-}, 3000);
+setInterval(createPipe, 5000);
+setInterval(removePipe, 15000);
+
+function removePipe(): any {
+    for (let i = 0; i < 6; i++) {
+        pipes[i].remove();
+    }
+    console.log("Removing pipes");
+}
+
