@@ -1,23 +1,17 @@
-// get the bird element
 const birdElement: any = document.querySelector<HTMLElement>('#bird');
-
-// extract the css property of bird
 const birdStyle:CSSStyleDeclaration = window.getComputedStyle(birdElement);
-
-// in order to make the bird down smoothly
 const gravity: number = 1.9;
 const velocity: number = 70;
-
-// since we have to make the bird jump and so on, therefore we have to extract the top value
+const pipeContainer: any = document.getElementById('pipe-container');
+const scoreElement: HTMLElement | any = document.getElementById('score');
 let positionY: number = parseInt(birdStyle.getPropertyValue('top').slice(0, 5));
-
 let isJumping: boolean = false;
 let firstJump: boolean = true;
-
 let animationId: number;
 let isPaused: boolean = false;
+let pipes: HTMLElement[] = [];
+let score: number = 0;
 
-// this is this jumping stuff
 function jump(): void {
     if(!isJumping) {
         isJumping = true;
@@ -31,13 +25,10 @@ function jump(): void {
         fall();
     }
 }
-
-// function for the bird to come down
 function fall(): void {
     positionY += gravity;
     birdElement.style.top = positionY + 'px';
 }
-
 function animate(): void {
 
         fall();
@@ -62,13 +53,7 @@ function animate(): void {
 
     // executing this works, but the animation does not begin even after pressing space, although bird jumps
 }
-
-animate();
-
-let upperPipe: any = document.querySelectorAll(".pipe-upper");
-
-// an event listener that will make the bird jump once space bar is pressed
-document.addEventListener('keydown', (event: KeyboardEvent) => {
+document.addEventListener('keydown' || 'touchstart', (event: KeyboardEvent) => {
     if(event.code === 'Space'){
         isJumping = false;
         // making sure the animation id is 0 for the animation to begin
@@ -89,8 +74,7 @@ document.addEventListener('keydown', (event: KeyboardEvent) => {
         }
     }
 })
-
-function generatePipeHeight() {
+function generatePipeHeight(): string {
     // Define the minimum and maximum heights for the pipes
     const minHeight = 30;
     const maxHeight = 45;
@@ -100,30 +84,23 @@ function generatePipeHeight() {
 
     return pipeHeight;
 }
-
-
-// pipe
-const pipeContainer: any = document.getElementById('pipe-container');
-// an array which will stores the generated pipes
-let pipes: HTMLElement[] = [];
-let pipeNumber: number = 0;
-
-//pipe generation
-function createPipe(): any {
+function initializePipeElement(element: HTMLElement | any, source: string): void {
+    element.src = source;
+    element.setAttribute('width', '400px');
+}
+function createAndCheckPipe(): any {
     let upperElement: HTMLElement | any = document.createElement('img');
     let lowerElement: HTMLElement | any = document.createElement('img');
 
-    // pipe init
+    // init
+    initializePipeElement(upperElement, "assets/pipe.png");
+    initializePipeElement(lowerElement, "assets/pipe.png");
+
     upperElement.classList.add('pipe-upper');
     lowerElement.classList.add('pipe-lower');
-    upperElement.src = "assets/pipe.png";
-    lowerElement.src = "assets/pipe.png";
 
-    //setting height and width
-    upperElement.setAttribute('width', '400px');
+    // setting height for pipe
     upperElement.style.height = generatePipeHeight();
-
-    lowerElement.setAttribute('width', '400px');
     lowerElement.style.height = generatePipeHeight();
 
     //pipe insertion
@@ -135,20 +112,17 @@ function createPipe(): any {
         lowerElement.remove();
     }, 11000);
 
-    let gap: string = (upperElement.style.height.slice(0, 2) - lowerElement.style.height.slice(0, 2)) + 'px';
-
     // check the bird
     setTimeout(() => {
-        // if(birdStyle.top === gap.slice()) {
-        //     console.log("ok");
-        // } else {
-        //     console.log("game over");
-        // }
-        console.log("gap between the pipes" + gap);
-        console.log("bird height" + birdStyle.top);
+        if(birdElement.offsetTop < lowerElement.offsetTop){
+            score = score + 1;
+            console.log(`going good ${score} is the current val of score`);
+            scoreElement.innerText = score.toString();
+        }
     }, 10500);
 }
 
-setInterval(createPipe, 5000);
+animate();
+setInterval(createAndCheckPipe, 5000);
 
 
