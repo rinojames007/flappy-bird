@@ -69,13 +69,10 @@ body{
 @keyframes moveRight {
     0% {
         right: 0;
-        opacity: 1;
-    }
-    90%{
-        opacity: 0.55;
+        /*opacity: 1;*/
     }
     100% {
         right: 100vw;
-        opacity: 0;
+        /*opacity: 0;*/
     }
 }

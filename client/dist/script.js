@@ -109,12 +109,20 @@ function createPipe() {
     //pipe insertion
     pipes.push(pipeContainer.appendChild(upperElement));
     pipes.push(pipeContainer.appendChild(lowerElement));
+    setInterval(() => {
+        upperElement.remove();
+        lowerElement.remove();
+    }, 11000);
+    let gap = (upperElement.style.height.slice(0, 2) - lowerElement.style.height.slice(0, 2)) + 'px';
+    // check the bird
+    setTimeout(() => {
+        // if(birdStyle.top === gap.slice()) {
+        //     console.log("ok");
+        // } else {
+        //     console.log("game over");
+        // }
+        console.log("gap between the pipes" + gap);
+        console.log("bird height" + birdStyle.top);
+    }, 10500);
 }
 setInterval(createPipe, 5000);
-setInterval(removePipe, 15000);
-function removePipe() {
-    for (let i = 0; i < 6; i++) {
-        pipes[i].remove();
-    }
-    console.log("Removing pipes");
-}

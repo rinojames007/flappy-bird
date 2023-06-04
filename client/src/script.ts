@@ -109,7 +109,7 @@ let pipes: HTMLElement[] = [];
 let pipeNumber: number = 0;
 
 //pipe generation
-function createPipe(): void {
+function createPipe(): any {
     let upperElement: HTMLElement | any = document.createElement('img');
     let lowerElement: HTMLElement | any = document.createElement('img');
 
@@ -129,15 +129,26 @@ function createPipe(): void {
     //pipe insertion
     pipes.push(pipeContainer.appendChild(upperElement));
     pipes.push(pipeContainer.appendChild(lowerElement));
+
+    setInterval(() => {
+        upperElement.remove();
+        lowerElement.remove();
+    }, 11000);
+
+    let gap: string = (upperElement.style.height.slice(0, 2) - lowerElement.style.height.slice(0, 2)) + 'px';
+
+    // check the bird
+    setTimeout(() => {
+        // if(birdStyle.top === gap.slice()) {
+        //     console.log("ok");
+        // } else {
+        //     console.log("game over");
+        // }
+        console.log("gap between the pipes" + gap);
+        console.log("bird height" + birdStyle.top);
+    }, 10500);
 }
 
 setInterval(createPipe, 5000);
-setInterval(removePipe, 15000);
 
-function removePipe(): any {
-    for (let i = 0; i < 6; i++) {
-        pipes[i].remove();
-    }
-    console.log("Removing pipes");
-}
 
