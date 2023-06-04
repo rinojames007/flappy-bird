@@ -76,3 +76,8 @@ body{
         /*opacity: 0;*/
     }
 }
+
+#score {
+    position: absolute;
+    z-index: 10;
+}
