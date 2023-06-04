@@ -1,6 +1,8 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 body{
@@ -50,19 +52,27 @@ body{
     width: 100%;
 }
 
-#pipe-container img{
-    background-image: url("/client/assets/pipe.png");
+.pipe-upper{
+    aspect-ratio: 1;
     position: absolute;
-    /*right: 0;*/
     transform: rotate(180deg);
+    animation: moveRight 15s linear infinite;
+}
+
+.pipe-lower {
+    aspect-ratio: 1;
+    top: 60vh;
+    position: absolute;
     animation: moveRight 15s linear infinite;
 }
 
 @keyframes moveRight {
     0% {
         right: 0;
+        /*opacity: 1;*/
     }
     100% {
         right: 100vw;
+        /*opacity: 0;*/
     }
 }
